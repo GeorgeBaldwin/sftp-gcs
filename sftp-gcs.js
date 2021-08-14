@@ -94,12 +94,14 @@ const BUCKET_NAME = argv.bucket.replace(/gs:\/\//,'');
 let allowedPubKey = null;
 if (publicKeyFile !== "") {
     allowedPubKey = ssh2.utils.parseKey(fs.readFileSync(publicKeyFile));
-}
+} 
 
 const storageOptions = {};
 if (serviceAccountKeyFile.length !== "") {
     storageOptions.keyFilename = serviceAccountKeyFile;
 }
+
+console.log("MY BUCKET KEY!!!", process.env.BUCKET_KEY);
 const storage = new Storage(storageOptions); // Get access to the GCS environment
 const bucket = storage.bucket(BUCKET_NAME); // The bucket is a global and provides access to the GCS data.
 
