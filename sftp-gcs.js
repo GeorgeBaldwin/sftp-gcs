@@ -17,12 +17,12 @@ const winston = require('winston');
 const {format} = winston;
 
 // Imports the Google Cloud client library for Winston
-const {LoggingWinston} = require('@google-cloud/logging-winston');
+//const {LoggingWinston} = require('@google-cloud/logging-winston');
 const { dir } = require('console');
 
-const loggingWinston = new LoggingWinston({
-    "logName": "sftp-gcs"
-});
+//const loggingWinston = new LoggingWinston({
+//    "logName": "sftp-gcs"
+//});
 const myFormat = format.printf( ({ level, message, timestamp }) => {
     return `${timestamp} ${level}: ${message}`;
 });
@@ -62,7 +62,7 @@ const logger = winston.createLogger({
     transports: [
       new winston.transports.Console(),
       // Add Cloud Logging Logging
-      loggingWinston,
+      //loggingWinston,
     ],
     format: format.combine(
       format.label({ label: 'sftp-gcs', message: true }),
