@@ -81,7 +81,7 @@ An object with the following valid properties:
 * atime - integer - UNIX timestamp of the access time of the resource.
 * mtime - integer - UNIX timestamp of the modified time of the resource.
 */
-
+console.log("args", argv);
 const allowedUser = argv.user;
 const allowedPassword = argv.password;
 const serviceAccountKeyFile = argv["service-account-key-file"];
