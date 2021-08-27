@@ -226,8 +226,9 @@ function fileLongEntry(name, isDirectory, size, padding, created) {
 
 new ssh2.Server({
     hostKeys: [getHostKey()],
-    "greeting": "SFTP-GCS demon",
-    "banner": "SFTP-GCS demon"
+    "greeting": "SFTP- demon",
+    "banner": "SFTP- demon",
+    "debug": true,
 }, function (client) {
     logger.debug('Client connected!');
 
@@ -240,9 +241,12 @@ new ssh2.Server({
     //
     client.on('authentication', function (ctx) {
         logger.debug(`authentication: method=${ctx.method}`);
+        console.log(ctx.method);
         //var user = Buffer.from(ctx.username);
         switch (ctx.method) {
             case 'none':
+                return ctx.reject(['password', 'publickey'], true);
+                /*
                 if (allowedUser.length !== 0) {
                     logger.debug(`We have at least a user to match`);
                     return ctx.reject(['password', 'publickey'], true);
@@ -258,8 +262,11 @@ new ssh2.Server({
                     return ctx.reject(['password', 'publickey'], true);
                 }
                 return ctx.accept(); // No userid and no password and no public key, come on in!
+                */
 
             case 'password':
+
+                
                 // If a username was supplied when the sftp-gcs app was started and the supplied sftp client
                 // username does not match then we can't authenticate.
                 if (allowedUser.length > 0 && allowedUser !== ctx.username) {
